@@ -25,9 +25,9 @@ class MyApp extends StatelessWidget {
       ),
       darkTheme: NeumorphicThemeData(
         baseColor: Color(0xFF3E3E3E),
-        lightSource: LightSource.topLeft,
-        depth: 3.5,
-        intensity: 0.8,
+        lightSource: LightSource.top,
+        depth: 4,
+        intensity: 0.6,
       ),
       home: MyHomePage(),
     );
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: NeumorphicTheme.baseColor(context),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Center(
@@ -103,6 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '+/-',
+                          onPressedFunc: (){setState(() { calc.plusMinus();});},
                         ),
                         NeuButton(
                           btnText: '%',
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '9',
-                            onPressedFunc: (){btnPush('9');}
+                           onPressedFunc: (){btnPush('9');}
                         ),
                         NeuButton(
                           btnText: 'X',
@@ -140,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         NeuButton(
                           btnText: '4',
-                            onPressedFunc: (){btnPush('4');}
+                           onPressedFunc: (){btnPush('4');}
                         ),
                         NeuButton(
                           btnText: '5',
@@ -152,6 +153,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '-',
+                          onPressedFunc: (){setState(() {
+                            calc.subtr();
+                          });},
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
@@ -174,6 +178,11 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '+',
+                          onPressedFunc: (){
+                            setState(() {
+                              calc.add();
+                            });
+                          },
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
