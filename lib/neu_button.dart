@@ -20,10 +20,7 @@ class NeuButton extends StatelessWidget {
         height: boxHeight ?? 70,
         width: boxWidth ?? 70,
         child: NeumorphicButton(
-          onPressed: () {
-            //function
-            print('i got clicked');
-          },
+          onPressed: onPressedFunc,
           style: NeumorphicStyle(
               shape: NeumorphicShape.flat,
               boxShape: NeumorphicBoxShape.roundRect(BorderRadius.circular(20)),

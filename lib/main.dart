@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'neu_button.dart';
-
+import 'calc_brain.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,13 +36,21 @@ class MyApp extends StatelessWidget {
 
 class MyHomePage extends StatefulWidget {
 
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
- String finalResult = '12345';
+
 
 class _MyHomePageState extends State<MyHomePage> {
+  CalcBrain calc = CalcBrain();
+
+  void btnPush(String num){
+    setState(() {
+      calc.addNumber(num);
+    });
+
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
@@ -56,19 +64,20 @@ class _MyHomePageState extends State<MyHomePage> {
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
-
                   children: [
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 50),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 50),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          Text( finalResult,
-                          style: GoogleFonts.montserrat(
-                                  fontSize: 60,
-                                  //fontWeight: FontWeight.w200,
-                                  //color: Color(0xFF55FE32),
-                            color: Colors.grey,
+                          Text(
+                            calc.display() ?? 'ERR',
+                            style: GoogleFonts.montserrat(
+                              fontSize: 55,
+                              //fontWeight: FontWeight.w200,
+                              //color: Color(0xFF55FE32),
+                              color: Colors.grey,
                             ),
                           ),
                         ],
@@ -84,55 +93,114 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeuButton(btnText: 'AC',),
-                        NeuButton(btnText: '+/-',),
-                        NeuButton(btnText: '%',),
-                        NeuButton(btnText: '÷', txtColor: Colors.orange, fontSize: 40,)
+                        NeuButton(
+                          btnText: 'AC',
+                          onPressedFunc: (){
+                            setState(() {
+                              calc.reset();
+                            });
+                          },
+                        ),
+                        NeuButton(
+                          btnText: '+/-',
+                        ),
+                        NeuButton(
+                          btnText: '%',
+                        ),
+                        NeuButton(
+                          btnText: '÷',
+                          txtColor: Colors.orange,
+                          fontSize: 40,
+                        )
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeuButton(btnText: '7',),
-                        NeuButton(btnText: '8',),
-                        NeuButton(btnText: '9',),
-                        NeuButton(btnText: 'X', txtColor: Colors.orange,)
+                        NeuButton(
+                          btnText: '7',
+                          onPressedFunc: (){btnPush('7');}
+                        ),
+                        NeuButton(
+                          btnText: '8',
+                            onPressedFunc: (){btnPush('8');}
+                        ),
+                        NeuButton(
+                          btnText: '9',
+                            onPressedFunc: (){btnPush('9');}
+                        ),
+                        NeuButton(
+                          btnText: 'X',
+                          txtColor: Colors.orange,
+                        )
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeuButton(btnText: '4',),
-                        NeuButton(btnText: '5',),
-                        NeuButton(btnText: '6',),
-                        NeuButton(btnText: '-', txtColor: Colors.orange,)
+                        NeuButton(
+                          btnText: '4',
+                            onPressedFunc: (){btnPush('4');}
+                        ),
+                        NeuButton(
+                          btnText: '5',
+                            onPressedFunc: (){btnPush('5');}
+                        ),
+                        NeuButton(
+                          btnText: '6',
+                            onPressedFunc: (){btnPush('6');}
+                        ),
+                        NeuButton(
+                          btnText: '-',
+                          txtColor: Colors.orange,
+                          fontSize: 40,
+                        )
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeuButton(btnText: '1',),
-                        NeuButton(btnText: '2',),
-                        NeuButton(btnText: '3',),
-                        NeuButton(btnText: '+', txtColor: Colors.orange,)
+                        NeuButton(
+                          btnText: '1',
+                            onPressedFunc: (){btnPush('1');}
+                        ),
+                        NeuButton(
+                          btnText: '2',
+                            onPressedFunc: (){btnPush('2');}
+                        ),
+                        NeuButton(
+                          btnText: '3',
+                            onPressedFunc: (){btnPush('3');}
+                        ),
+                        NeuButton(
+                          btnText: '+',
+                          txtColor: Colors.orange,
+                          fontSize: 40,
+                        )
                       ],
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        NeuButton(btnText: '0', boxWidth: 170,),
-                        NeuButton(btnText: '.',),
-                        NeuButton(btnText: '=', txtColor: Colors.orange,)
+                        NeuButton(
+                          btnText: '0',
+                          onPressedFunc: (){btnPush('0');},
+                          boxWidth: 170,
+                        ),
+                        NeuButton(
+                          btnText: '.',
+                            onPressedFunc: (){btnPush('.');}
+                        ),
+                        NeuButton(
+                          btnText: '=',
+                          txtColor: Colors.orange,
+                          fontSize: 40,
+                        )
                       ],
                     ),
                   ],
                 ),
               ),
-
-
-
-
-
             ],
           ),
         ),
@@ -141,3 +209,148 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
+class MainScreen extends StatefulWidget {
+  @override
+  _MainScreenState createState() => _MainScreenState();
+}
+
+class _MainScreenState extends State<MainScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            Expanded(
+              flex: 2,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 50),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          '123',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 60,
+                            //fontWeight: FontWeight.w200,
+                            //color: Color(0xFF55FE32),
+                            color: Colors.grey,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 4,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      NeuButton(
+                        btnText: 'AC',
+                      ),
+                      NeuButton(
+                        btnText: '+/-',
+                      ),
+                      NeuButton(
+                        btnText: '%',
+                      ),
+                      NeuButton(
+                        btnText: '÷',
+                        txtColor: Colors.orange,
+                        fontSize: 40,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      NeuButton(
+                        btnText: '7',
+                      ),
+                      NeuButton(
+                        btnText: '8',
+                      ),
+                      NeuButton(
+                        btnText: '9',
+                      ),
+                      NeuButton(
+                        btnText: 'X',
+                        txtColor: Colors.orange,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      NeuButton(
+                        btnText: '4',
+                      ),
+                      NeuButton(
+                        btnText: '5',
+                      ),
+                      NeuButton(
+                        btnText: '6',
+                      ),
+                      NeuButton(
+                        btnText: '-',
+                        txtColor: Colors.orange,
+                        fontSize: 40,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      NeuButton(
+                        btnText: '1',
+                      ),
+                      NeuButton(
+                        btnText: '2',
+                      ),
+                      NeuButton(
+                        btnText: '3',
+                      ),
+                      NeuButton(
+                        btnText: '+',
+                        txtColor: Colors.orange,
+                        fontSize: 40,
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      NeuButton(
+                        btnText: '0',
+                        boxWidth: 170,
+                      ),
+                      NeuButton(
+                        btnText: '.',
+                      ),
+                      NeuButton(
+                        btnText: '=',
+                        txtColor: Colors.orange,
+                        fontSize: 40,
+                      )
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
