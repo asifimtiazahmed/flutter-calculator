@@ -107,9 +107,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '%',
+                          onPressedFunc: (){setState(() {
+                            calc.mod();
+                          });},
                         ),
                         NeuButton(
                           btnText: '÷',
+                          onPressedFunc: (){setState(() {
+                            calc.division();
+                          });},
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
@@ -131,7 +137,10 @@ class _MyHomePageState extends State<MyHomePage> {
                            onPressedFunc: (){btnPush('9');}
                         ),
                         NeuButton(
-                          btnText: 'X',
+                          btnText: 'x',
+                          onPressedFunc: (){setState(() {
+                            calc.multi();
+                          });},
                           txtColor: Colors.orange,
                         )
                       ],
@@ -202,6 +211,9 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '=',
+                          onPressedFunc: (){setState(() {
+                            calc.equals();
+                          });},
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )

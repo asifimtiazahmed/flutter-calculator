@@ -1,3 +1,4 @@
+import 'dart:math';
 
 class CalcBrain {
 
@@ -8,7 +9,9 @@ class CalcBrain {
   String _currentDisp ;
   bool _getNextNum = false;
   bool _isSubtraction = false;
-
+  bool _isMultiplication = false;
+  bool _isDivision = false;
+  bool _isModal = false;
 
 //add a number to the buffer from the button
   void addNumber(String input) {
@@ -20,7 +23,7 @@ class CalcBrain {
     } else if (_decimalCheck >= 2 && !(input == '.') && _bufferA.length <= 10) {
       _bufferA.add(input);
     }
-    print(_bufferA);
+    print('$_bufferA added');
     _getNextNum = false; //it is usually a one time thing.
   }
 
@@ -55,6 +58,28 @@ class CalcBrain {
     return _currentDisp;
   }
 
+  void allFalse(String s){
+    _isSubtraction = false;
+    _isMultiplication = false;
+    _isDivision = false;
+
+    switch(s){
+      case('_isSubtraction'):
+        _isSubtraction = true;
+        break;
+      case('_isMultiplication'):
+        _isMultiplication = true;
+        break;
+      case('_isDivision'):
+        _isDivision = true;
+        break;
+      case('_isModal'):
+        _isModal = true;
+        break;
+      default:
+    }
+
+  }
   void reset(){
     _bufferA=[' '];
     _decimalCheck = 0;
@@ -63,15 +88,43 @@ class CalcBrain {
     _buffA = 0.0;
     _getNextNum = false;
     _isSubtraction = false;
-
+    _isMultiplication = false;
+    _isDivision = false;
+    _isModal= false;
   }
 
   void plusMinus(){
-    (_bufferA[0] != '-') ? _bufferA[0] = '-' : _bufferA[0] = ' ';
+    String testFoNeg = _bufferA[0];
+    for(int x = 1; x < _bufferA.length; x++){
+      testFoNeg += _bufferA[x];
+    }
+    print('test for neg = $testFoNeg');
+    double flip = double.parse(testFoNeg);
+    flip = - flip;
+    print(flip.toString());
+    _result = flip;
+    _bufferA = [' '];
+    addNumber(flip.toString());
+    allFalse('allFalse');
+
+    //} else {
+    //  (_bufferA[0] != '-') ? _bufferA[0] = '-' : _bufferA[0] = ' ';
+    //}
   }
 
 void mod(){
-
+  if(_isModal){
+    print('multi is true now.');
+    _buffA =_buffA % _result;
+  } else{
+    _buffA += _result;
+  }
+  _bufferA=[' '];        //resets the buffers except buffA and B   display now showing <blank>
+  _result = _buffA;// restores back the number in result;     result restored
+  print(_result);
+  addNumber(_result.toString()); //display the result
+  _getNextNum = true;
+  allFalse('_isModal');
 }
 
 void add(){
@@ -99,16 +152,60 @@ void subtr(){
   print(_result);
   addNumber(_result.toString()); //display the result
   _getNextNum = true;
-  _isSubtraction = true;
+  allFalse('_isSubtraction');
 
 }
 
 void multi(){
+  if(_isMultiplication){
+    print('multi is true now.');
+    _buffA *= _result;
+  } else{
+    _buffA += _result;
+  }
+  _bufferA=[' '];        //resets the buffers except buffA and B   display now showing <blank>
+  _result = _buffA;// restores back the number in result;     result restored
+  print(_result);
+  addNumber(_result.toString()); //display the result
+  _getNextNum = true;
+  allFalse('_isMultiplication');
+}
 
+void division(){
+  if(_isDivision){
+    print('div is true now.');
+    _buffA /= _result;
+  } else{
+    _buffA += _result;
+  }
+  _bufferA=[' '];        //resets the buffers except buffA and B   display now showing <blank>
+  _result = _buffA;// restores back the number in result;     result restored
+  print(_result);
+  addNumber(_result.toString()); //display the result
+  _getNextNum = true;
+  allFalse('_isDivision');
 }
 
 void equals(){
-
+    print('eql calld');
+  if(_isDivision){
+    print('div is true now.');
+    _buffA /= _result;
+  } else if(_isMultiplication){
+    print('multi is true now.');
+    _buffA *= _result;
+  } else if(_isSubtraction){
+    print('sub is true now.');
+    _buffA -= _result;
+  } else if(_isSubtraction) {
+    print('mod is true now.');
+    _buffA = _buffA % _result;
+  } else{
+    _buffA += _result;
+  }
+  _getNextNum = true;
+  _result = _buffA;
+  addNumber(_result.toString());
 }
 
 }
