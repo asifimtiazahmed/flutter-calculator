@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void btnPush(String num){
     setState(() {
-      calc.addNumber(num);
+      calc.getInput(num);
     });
 
   }
@@ -108,13 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         NeuButton(
                           btnText: '%',
                           onPressedFunc: (){setState(() {
-                            calc.mod();
+                         //   calc.mod();
                           });},
                         ),
                         NeuButton(
                           btnText: '÷',
                           onPressedFunc: (){setState(() {
-                            calc.division();
+                          //  calc.division();
                           });},
                           txtColor: Colors.orange,
                           fontSize: 40,
@@ -139,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         NeuButton(
                           btnText: 'x',
                           onPressedFunc: (){setState(() {
-                            calc.multi();
+                         calc.mainCalculator('x');
                           });},
                           txtColor: Colors.orange,
                         )
@@ -163,7 +163,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         NeuButton(
                           btnText: '-',
                           onPressedFunc: (){setState(() {
-                            calc.subtr();
+                          calc.mainCalculator('-');
                           });},
                           txtColor: Colors.orange,
                           fontSize: 40,
@@ -189,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           btnText: '+',
                           onPressedFunc: (){
                             setState(() {
-                              calc.add();
+                            calc.mainCalculator('+');
                             });
                           },
                           txtColor: Colors.orange,
@@ -212,7 +212,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         NeuButton(
                           btnText: '=',
                           onPressedFunc: (){setState(() {
-                            calc.equals();
+                          calc.equals();
                           });},
                           txtColor: Colors.orange,
                           fontSize: 40,
