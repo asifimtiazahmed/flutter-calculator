@@ -219,9 +219,7 @@ int isDecimal =  0;
 String lastUsedOperator;
 
 void reset(){
-  _inputA = '0';
-  _inputB = '0';
-  _mainList = [' '];
+   _mainList = [' '];
   _result = 0;
   _outputString = '0';
   _switchInput = false;
@@ -241,28 +239,21 @@ String filterInput(String input){
 void getInput(String input){
   print('get input called with input of $input');
   input = filterInput(input); //filter out the
-  if(_switchInput){
-    _mainList = [' '];
-    isDecimal = 0;
-  }
+
   (input != '') ? _mainList.add(input) : print('$input not added to mainList'); //add the input to the mainList
   addToOutputString(_mainList); //send it to be displayed
-  if(_switchInput){ //store the input to appropriate list
-    _inputB = _outputString;
-    print('mainList Stored in inputB $_inputB');
-  //  addToOutputString(_inputA);
-  } else {
-    _inputA = _outputString;
-    print('mainList Stored in inputA $_inputA');
-  //  addToOutputString(_inputB);
-  }
-  _switchInput = false;
 }
 
 String display(){
   print('display called');
   double output = double.tryParse(_outputString);
-  return output.toStringAsFixed(output.truncateToDouble() == output ? 0 : 2); // to 2 decimal places
+  if(_outputString.contains('.')){
+  String first = _outputString.substring(_outputString.indexOf('.'), _outputString.length);
+    if(double.tryParse(first) == 0.0)
+      _outputString = _outputString.substring(0, _outputString.indexOf('.'));
+  print(first);}
+  //return output.toStringAsFixed(output.truncateToDouble() == output ? 0 : 2); // to 2 decimal places
+  return _outputString;
 }
 
 void addToOutputString(List inputS){
@@ -277,83 +268,105 @@ double stringToNumber(String toNum){
   print('string to num called');
   return double.parse(toNum);
 }
+void toggleSwitchInput(){
+  (_switchInput = false) ? _switchInput = true : _switchInput = false;
+    _mainList = [' '];
+    isDecimal = 0;
+}
 
 void equals(){
+  print('equals called');
   (lastUsedOperator != null) ? mainCalculator(lastUsedOperator) : lastUsedOperator = null;
+  lastUsedOperator = null;
 }
 
 void mainCalculator(String operator){
   switch(operator){
     case('+'):
       print('+ called');
-      _switchInput = true;
-      print('result before $_result');
-      _result += stringToNumber(_outputString);
-      print('result after $_result');
+      if(lastUsedOperator != '+'){
+        print('result before $_result');
+        _result = double.tryParse(_outputString); //resets result to 0
+        print('result after $_result');
+        //_result += stringToNumber(_outputString); //store whatever is in the display to result
+      } else {
+        print('result before $_result');
+        _result += stringToNumber(_outputString);
+        print('result after $_result');
+        toggleSwitchInput();
+      }
       lastUsedOperator = '+';
-
        //initializes mainlist with the result to string
-      //TODO Addition
+
       break;
     case('-'):
       print('- called');
-      _switchInput = true;
+      if(lastUsedOperator != '-'){
+        print('result before $_result');
+        _result = double.tryParse(_outputString); //resets result to 0
+        print('result after $_result');
+        //_result += stringToNumber(_outputString); //store whatever is in the display to result
+      } else {
       print('result before $_result');
       _result -= stringToNumber(_outputString);
-      print('result after $_result');
+      print('result after $_result');}
+      toggleSwitchInput();
       lastUsedOperator = '-';
       break;
     case('x'):
       print('x called');
-      _switchInput = true;
-      print('result before $_result');
-      _result *= stringToNumber(_outputString);
-      print('result after $_result');
+      if(lastUsedOperator != 'x'){
+        print('result before $_result');
+        _result = double.tryParse(_outputString); //resets result to 0
+        print('result after $_result');
+        //_result += stringToNumber(_outputString); //store whatever is in the display to result
+      } else {
+        print('result before $_result');
+        _result *= stringToNumber(_outputString);
+        print('result after $_result');}
+      toggleSwitchInput();
       lastUsedOperator = 'x';
-      //TODO multiplication
       break;
-    case('/'):
-      //TODO Division
+    case('÷'):
+      print('÷ called');
+      if(lastUsedOperator != '-'){
+        print('result before $_result');
+        _result = double.tryParse(_outputString); //resets result to 0
+        print('result after $_result');
+        //_result += stringToNumber(_outputString); //store whatever is in the display to result
+      } else {
+        print('result before $_result');
+        _result /= stringToNumber(_outputString);
+        print('result after $_result');}
+      toggleSwitchInput();
+      lastUsedOperator = '÷';
       break;
     case('%'):
-      //TODO Modulus
+      print('% called');
+      if(lastUsedOperator != '-'){
+        print('result before $_result');
+        _result = double.tryParse(_outputString); //resets result to 0
+        print('result after $_result');
+        //_result += stringToNumber(_outputString); //store whatever is in the display to result
+      } else {
+        print('result before $_result');
+        _result %= stringToNumber(_outputString);
+        print('result after $_result');}
+      toggleSwitchInput();
+      lastUsedOperator = '%';
       break;
     default:
   }
   _mainList = [_result.toString()];
   addToOutputString(_mainList);
   _mainList = [' '];
-
-
 }
 
 void plusMinus() {
-  (_mainList[0] == '-') ? _mainList[0] = ' ' : _mainList[0] = '-';
+    _outputString = (-double.tryParse(_outputString)).toString();
+  _mainList=[_outputString];
   addToOutputString(_mainList);
+  _mainList=[' '];
 }
-  /*
-  String getNeg;
-  //parse the mainList to string
-  getNeg = _mainList[0];
-  for(int i=1; i < _mainList.length; i++){
-    getNeg+=_mainList[i];
-  }
-  double flip = double.parse(getNeg);
-  flip = - flip;
-
-  if(_outputString[0] != '-'){
-    getNeg = '-';
-    for(int x =0; x <_outputString.length; x++ ){
-      getNeg+= _outputString[x];
-    }
-  } else { //if negative already present
-    getNeg = _outputString[1];
-    for(int x =2; x <_outputString.length; x++ ) {
-      getNeg += _outputString[x];
-    }
-  }
-  _outputString = getNeg;
-}
-*/
 
 }

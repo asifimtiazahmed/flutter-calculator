@@ -108,13 +108,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         NeuButton(
                           btnText: '%',
                           onPressedFunc: (){setState(() {
-                         //   calc.mod();
+                         calc.mainCalculator('%');
                           });},
                         ),
                         NeuButton(
                           btnText: '÷',
                           onPressedFunc: (){setState(() {
-                          //  calc.division();
+                           calc.mainCalculator('÷');
                           });},
                           txtColor: Colors.orange,
                           fontSize: 40,
