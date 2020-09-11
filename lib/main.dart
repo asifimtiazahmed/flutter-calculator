@@ -6,7 +6,6 @@ import 'neu_button.dart';
 import 'calc_brain.dart';
 import 'myTheme.dart';
 
-
 void main() => runApp(MyApp());
 MyTheme currentTheme = MyTheme();
 
@@ -18,11 +17,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
- // MyTheme currentTheme = MyTheme();
+  // MyTheme currentTheme = MyTheme();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     currentTheme.addListener(() {
       print('Theme changed');
@@ -56,20 +54,19 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-
 class _MyHomePageState extends State<MyHomePage> {
   CalcBrain calc = CalcBrain();
 
-  void btnPush(String num){
+  void btnPush(String num) {
     setState(() {
       calc.getInput(num);
     });
   }
+
   bool isSwitched = false;
   //MyTheme currentTheme = MyTheme();
 
@@ -109,18 +106,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15),
                           child: Switch(
                             value: isSwitched,
-                            onChanged: (value){
+                            onChanged: (value) {
                               setState(() {
-                                (isSwitched) ? isSwitched = false : isSwitched = true;
-                                if(isSwitched){
+                                (isSwitched)
+                                    ? isSwitched = false
+                                    : isSwitched = true;
+                                if (isSwitched) {
                                   print('on');
                                   currentTheme.switchTheme();
-                                } else{
+                                } else {
                                   print('off');
                                   currentTheme.switchTheme();
                                 }
@@ -144,7 +142,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         NeuButton(
                           btnText: 'AC',
-                          onPressedFunc: (){
+                          onPressedFunc: () {
                             setState(() {
                               calc.reset();
                             });
@@ -152,19 +150,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         NeuButton(
                           btnText: '+/-',
-                          onPressedFunc: (){setState(() { calc.plusMinus();});},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.plusMinus();
+                            });
+                          },
                         ),
                         NeuButton(
                           btnText: '%',
-                          onPressedFunc: (){setState(() {
-                         calc.mainCalculator('%');
-                          });},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.mainCalculator('%');
+                            });
+                          },
                         ),
                         NeuButton(
                           btnText: '÷',
-                          onPressedFunc: (){setState(() {
-                           calc.mainCalculator('÷');
-                          });},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.mainCalculator('÷');
+                            });
+                          },
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
@@ -174,22 +180,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NeuButton(
-                          btnText: '7',
-                          onPressedFunc: (){btnPush('7');}
-                        ),
+                            btnText: '7',
+                            onPressedFunc: () {
+                              btnPush('7');
+                            }),
                         NeuButton(
-                          btnText: '8',
-                            onPressedFunc: (){btnPush('8');}
-                        ),
+                            btnText: '8',
+                            onPressedFunc: () {
+                              btnPush('8');
+                            }),
                         NeuButton(
-                          btnText: '9',
-                           onPressedFunc: (){btnPush('9');}
-                        ),
+                            btnText: '9',
+                            onPressedFunc: () {
+                              btnPush('9');
+                            }),
                         NeuButton(
                           btnText: 'x',
-                          onPressedFunc: (){setState(() {
-                         calc.mainCalculator('x');
-                          });},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.mainCalculator('x');
+                            });
+                          },
                           txtColor: Colors.orange,
                         )
                       ],
@@ -198,22 +209,27 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NeuButton(
-                          btnText: '4',
-                           onPressedFunc: (){btnPush('4');}
-                        ),
+                            btnText: '4',
+                            onPressedFunc: () {
+                              btnPush('4');
+                            }),
                         NeuButton(
-                          btnText: '5',
-                            onPressedFunc: (){btnPush('5');}
-                        ),
+                            btnText: '5',
+                            onPressedFunc: () {
+                              btnPush('5');
+                            }),
                         NeuButton(
-                          btnText: '6',
-                            onPressedFunc: (){btnPush('6');}
-                        ),
+                            btnText: '6',
+                            onPressedFunc: () {
+                              btnPush('6');
+                            }),
                         NeuButton(
                           btnText: '-',
-                          onPressedFunc: (){setState(() {
-                          calc.mainCalculator('-');
-                          });},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.mainCalculator('-');
+                            });
+                          },
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
@@ -223,22 +239,25 @@ class _MyHomePageState extends State<MyHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         NeuButton(
-                          btnText: '1',
-                            onPressedFunc: (){btnPush('1');}
-                        ),
+                            btnText: '1',
+                            onPressedFunc: () {
+                              btnPush('1');
+                            }),
                         NeuButton(
-                          btnText: '2',
-                            onPressedFunc: (){btnPush('2');}
-                        ),
+                            btnText: '2',
+                            onPressedFunc: () {
+                              btnPush('2');
+                            }),
                         NeuButton(
-                          btnText: '3',
-                            onPressedFunc: (){btnPush('3');}
-                        ),
+                            btnText: '3',
+                            onPressedFunc: () {
+                              btnPush('3');
+                            }),
                         NeuButton(
                           btnText: '+',
-                          onPressedFunc: (){
+                          onPressedFunc: () {
                             setState(() {
-                            calc.mainCalculator('+');
+                              calc.mainCalculator('+');
                             });
                           },
                           txtColor: Colors.orange,
@@ -251,18 +270,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         NeuButton(
                           btnText: '0',
-                          onPressedFunc: (){btnPush('0');},
+                          onPressedFunc: () {
+                            btnPush('0');
+                          },
                           boxWidth: 170,
                         ),
                         NeuButton(
-                          btnText: '.',
-                            onPressedFunc: (){btnPush('.');}
-                        ),
+                            btnText: '.',
+                            onPressedFunc: () {
+                              btnPush('.');
+                            }),
                         NeuButton(
                           btnText: '=',
-                          onPressedFunc: (){setState(() {
-                          calc.equals();
-                          });},
+                          onPressedFunc: () {
+                            setState(() {
+                              calc.equals();
+                            });
+                          },
                           txtColor: Colors.orange,
                           fontSize: 40,
                         )
