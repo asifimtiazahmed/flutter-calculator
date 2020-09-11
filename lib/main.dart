@@ -4,17 +4,38 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'neu_button.dart';
 import 'calc_brain.dart';
+import 'myTheme.dart';
+
 
 void main() => runApp(MyApp());
+MyTheme currentTheme = MyTheme();
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   // This widget is the root of your application.
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+ // MyTheme currentTheme = MyTheme();
+
+  @override
+  void initState(){
+    super.initState();
+    currentTheme.addListener(() {
+      print('Theme changed');
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      themeMode: ThemeMode.light,
+      themeMode: currentTheme.currentTheme(),
       theme: NeumorphicThemeData(
         defaultTextColor: Colors.black87,
         baseColor: Color(0xFFFFFFFF),
@@ -48,8 +69,10 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {
       calc.getInput(num);
     });
-
   }
+  bool isSwitched = false;
+  //MyTheme currentTheme = MyTheme();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,7 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 50),
+                          horizontal: 10, vertical: 40),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
@@ -82,6 +105,32 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15),
+                          child: Switch(
+                            value: isSwitched,
+                            onChanged: (value){
+                              setState(() {
+                                (isSwitched) ? isSwitched = false : isSwitched = true;
+                                if(isSwitched){
+                                  print('on');
+                                  currentTheme.switchTheme();
+                                } else{
+                                  print('off');
+                                  currentTheme.switchTheme();
+                                }
+                              });
+                            },
+                            activeTrackColor: Colors.grey,
+                            activeColor: Colors.red[900],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),

@@ -247,13 +247,41 @@ void getInput(String input){
 String display(){
   print('display called');
   double output = double.tryParse(_outputString);
+  String newOut = _outputString[0];
+  //newOut +='.';
   if(_outputString.contains('.')){
   String first = _outputString.substring(_outputString.indexOf('.'), _outputString.length);
     if(double.tryParse(first) == 0.0)
       _outputString = _outputString.substring(0, _outputString.indexOf('.'));
   print(first);}
+ /* if(_outputString.length > 10) {
+    if (_outputString.contains('.')) {
+      int decPlace = _outputString.indexOf('.');
+      for (int i = 1; i < 7 - decPlace; i++) {
+        if (_outputString[i] != '.')
+          newOut += _outputString[1];
+      }
+      newOut += 'E+$decPlace';
+    } else {
+      for (int i = 1; i < 9 - (_outputString.length - 7); i++) {
+        if (_outputString[i] != '.')
+          newOut += _outputString[1];
+      }
+      newOut += 'E+' + (_outputString.length - 7).toString();
+    }
+  }
   //return output.toStringAsFixed(output.truncateToDouble() == output ? 0 : 2); // to 2 decimal places
-  return _outputString;
+  print(newOut);
+
+  */
+ if(_outputString.length >=10){
+   for(int i =1; i <10; i++){
+     newOut += _outputString[i];
+   }
+   _outputString = newOut;
+ }
+
+    return _outputString;
 }
 
 void addToOutputString(List inputS){
@@ -360,6 +388,8 @@ void mainCalculator(String operator){
   _mainList = [_result.toString()];
   addToOutputString(_mainList);
   _mainList = [' '];
+  isDecimal = 0; // newly added
+
 }
 
 void plusMinus() {
