@@ -36,6 +36,7 @@ class _MyAppState extends State<MyApp> {
       themeMode: currentTheme.currentTheme(),
       theme: NeumorphicThemeData(
         defaultTextColor: Colors.black87,
+        //baseColor: Color(0xFFFFFFFF),
         baseColor: Color(0xFFFFFFFF),
         lightSource: LightSource.topLeft,
         accentColor: Colors.green,
